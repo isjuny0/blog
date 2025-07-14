@@ -3,6 +3,8 @@ package com.example.blog.service;
 import com.example.blog.dto.PostRequestDto;
 import com.example.blog.dto.PostResponseDto;
 import com.example.blog.entity.Post;
+import com.example.blog.exception.CustomException;
+import com.example.blog.exception.ErrorCode;
 import com.example.blog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,13 +32,13 @@ public class PostService {
 
     public PostResponseDto findById(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
         return postMapper.toDto(post);
     }
 
     public PostResponseDto update(Long id, PostRequestDto dto) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
         post.setTitle(dto.getTitle());
         post.setContent(dto.getContent());
         post.setUpdatedAt(LocalDateTime.now());
