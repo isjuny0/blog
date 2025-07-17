@@ -17,9 +17,9 @@ public class JwtUtil {
     private static final String AUTH_HEADER = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
 
-    private Key key;
+    private Key key;    // Decode한 secret_key를 담는 객체
 
-    @PostConstruct
+    @PostConstruct  // 딱 한번만 받아오면 되는 값을 위해 사용
     public void init() {
         key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
