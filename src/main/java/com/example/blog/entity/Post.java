@@ -21,7 +21,15 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

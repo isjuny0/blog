@@ -5,6 +5,8 @@ import com.example.blog.dto.PostResponseDto;
 import com.example.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +19,11 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public ResponseEntity<PostResponseDto> create(@RequestBody PostRequestDto dto) {
-        return ResponseEntity.ok(postService.create(dto));
+    public ResponseEntity<PostResponseDto> create(@RequestBody PostRequestDto dto,
+                                                  @AuthenticationPrincipal UserDetails userDetails) {
+        String username = userDetails.getUsername();
+        PostResponseDto response = postService.create(dto, username);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping

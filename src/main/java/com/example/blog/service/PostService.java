@@ -3,9 +3,11 @@ package com.example.blog.service;
 import com.example.blog.dto.PostRequestDto;
 import com.example.blog.dto.PostResponseDto;
 import com.example.blog.entity.Post;
+import com.example.blog.entity.User;
 import com.example.blog.exception.CustomException;
 import com.example.blog.exception.ErrorCode;
 import com.example.blog.repository.PostRepository;
+import com.example.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,16 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final PostMapper postMapper;
+    private final UserRepository userRepository;
 
-    public PostResponseDto create(PostRequestDto dto) {
-        Post saved = postRepository.save(postMapper.toEntity(dto));
+    public PostResponseDto create(PostRequestDto dto, String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        Post post = postMapper.toEntity(dto);
+        post.setUser(user);
+
+        Post saved = postRepository.save(post);
         return postMapper.toDto(saved);
     }
 
