@@ -7,6 +7,7 @@ import com.example.blog.security.UserDetailsImpl;
 import com.example.blog.service.PostMapper;
 import com.example.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +28,7 @@ public class PostController {
                                                   @AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
         PostResponseDto response = postService.create(dto, username);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping
