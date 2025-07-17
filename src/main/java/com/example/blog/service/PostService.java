@@ -11,6 +11,7 @@ import com.example.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -45,16 +46,26 @@ public class PostService {
         return postMapper.toDto(post);
     }
 
-    public PostResponseDto update(Long id, PostRequestDto dto) {
-        Post post = postRepository.findById(id)
+    public PostResponseDto update(Long postId, PostRequestDto dto, User user) {
+        Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
+
+        if (!post.getUser().getUsername().equals(user.getUsername())) {
+            throw new CustomException(ErrorCode.INVALID_REQUEST);
+        }
         post.setTitle(dto.getTitle());
         post.setContent(dto.getContent());
         post.setUpdatedAt(LocalDateTime.now());
         return postMapper.toDto(postRepository.save(post));
     }
 
-    public void delete(Long id) {
-        postRepository.deleteById(id);
+    public void delete(Long postId, User user) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
+        if (!post.getUser().getUsername().equals(user.getUsername())) {
+            throw new CustomException(ErrorCode.INVALID_REQUEST);
+        }
+
+        postRepository.delete(post);
     }
 }
