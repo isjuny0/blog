@@ -7,6 +7,8 @@ import com.example.blog.entity.Post;
 import com.example.blog.entity.User;
 import com.example.blog.exception.CustomException;
 import com.example.blog.exception.ErrorCode;
+import com.example.blog.mapper.CommentMapper;
+import com.example.blog.repository.CommentLikeRepository;
 import com.example.blog.repository.CommentRepository;
 import com.example.blog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,9 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
+    private final CommentLikeRepository commentLikeRepository;
+    private final CommentMapper commentMapper;
+
 
     public CommentResponseDto createComment(Long postId, CommentRequestDto requestDto, User user) {
         Post post = postRepository.findById(postId)
@@ -33,15 +38,16 @@ public class CommentService {
                 .build();
 
         commentRepository.save(comment);
-        return new CommentResponseDto(comment.getId(), comment.getContent(), comment.getUser().getUsername());
+        return commentMapper.toDto(comment);
     }
 
-    public List<CommentResponseDto> getCommentsByPost(Long postId) {
+    public List<CommentResponseDto> getCommentsByPost(Long postId, User currentUser) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
+        List<Comment> comments = commentRepository.findByPost(post);
 
-        return commentRepository.findByPost(post).stream()
-                .map(comment -> new CommentResponseDto(comment.getId(), comment.getContent(), comment.getUser().getUsername()))
+        return comments.stream()
+                .map(comment -> commentMapper.toDto(comment, currentUser))
                 .collect(Collectors.toList());
     }
 
@@ -52,7 +58,7 @@ public class CommentService {
             throw new SecurityException("작성자만 수정할 수 있습니다.");
         }
         comment.setContent(requestDto.getContent());
-        return new CommentResponseDto(comment.getId(), comment.getContent(), comment.getUser().getUsername());
+        return commentMapper.toDto(commentRepository.save(comment));
     }
 
     public void deleteComment(Long commentId, User user) {

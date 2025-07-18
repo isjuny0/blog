@@ -33,8 +33,11 @@ public class CommentController {
 
     // 댓글 목록 조회
     @GetMapping
-    public ResponseEntity<List<CommentResponseDto>> getComments(@PathVariable Long postId) {
-        return ResponseEntity.ok(commentService.getCommentsByPost(postId));
+    public ResponseEntity<List<CommentResponseDto>> getComments(@PathVariable Long postId,
+                                                                @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        User currentUser = userDetails.getUser();
+        List<CommentResponseDto> response = commentService.getCommentsByPost(postId, currentUser);
+        return ResponseEntity.ok(response);
     }
 
     // 댓글 수정

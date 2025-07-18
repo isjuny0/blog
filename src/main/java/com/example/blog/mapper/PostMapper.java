@@ -1,10 +1,9 @@
-package com.example.blog.service;
+package com.example.blog.mapper;
 
 import com.example.blog.dto.PostRequestDto;
 import com.example.blog.dto.PostResponseDto;
 import com.example.blog.entity.Post;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.Mapping;
 
 import java.time.LocalDateTime;
 
