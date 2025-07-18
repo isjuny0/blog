@@ -51,7 +51,7 @@ public class PostService {
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
 
         if (!post.getUser().getUsername().equals(user.getUsername())) {
-            throw new CustomException(ErrorCode.INVALID_REQUEST);
+            throw new CustomException(ErrorCode.UNAUTHORIZED_ACCESS);
         }
         post.setTitle(dto.getTitle());
         post.setContent(dto.getContent());
@@ -63,7 +63,7 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
         if (!post.getUser().getUsername().equals(user.getUsername())) {
-            throw new CustomException(ErrorCode.INVALID_REQUEST);
+            throw new CustomException(ErrorCode.UNAUTHORIZED_ACCESS);
         }
 
         postRepository.delete(post);

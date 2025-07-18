@@ -1,6 +1,8 @@
 package com.example.blog.service;
 
 import com.example.blog.entity.User;
+import com.example.blog.exception.CustomException;
+import com.example.blog.exception.ErrorCode;
 import com.example.blog.repository.UserRepository;
 import com.example.blog.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         return new UserDetailsImpl(user);
     }
 }

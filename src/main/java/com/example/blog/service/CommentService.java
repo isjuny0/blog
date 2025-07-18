@@ -55,7 +55,7 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
         if (!comment.getUser().getId().equals(user.getId())) {
-            throw new SecurityException("작성자만 수정할 수 있습니다.");
+            throw new CustomException(ErrorCode.UNAUTHORIZED_ACCESS);
         }
         comment.setContent(requestDto.getContent());
         return commentMapper.toDto(commentRepository.save(comment));
@@ -65,7 +65,7 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
         if (!comment.getUser().getId().equals(user.getId())) {
-            throw new SecurityException("작성자만 삭제할 수 있습니다.");
+            throw new CustomException(ErrorCode.UNAUTHORIZED_ACCESS);
         }
         commentRepository.delete(comment);
     }
