@@ -8,34 +8,30 @@ import com.example.blog.exception.ErrorCode;
 import com.example.blog.repository.CommentLikeRepository;
 import com.example.blog.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CommentLikeService {
 
-    private final CommentLikeRepository commentLikeRepository;
     private final CommentRepository commentRepository;
+    private final CommentLikeRepository commentLikeRepository;
 
-    public String toggleLike(Long commentId, User user) {
+    public boolean toggleLike(Long commentId, User user) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
 
-        // 이미 좋아요를 눌렀는지 확인
         return commentLikeRepository.findByUserAndComment(user, comment)
                 .map(existingLike -> {
-                    // 존재하면 삭제 (좋아요 취소)
                     commentLikeRepository.delete(existingLike);
-                    return "좋아요가 취소되었습니다.";
+                    return false; // 좋아요 취소됨
                 })
                 .orElseGet(() -> {
-                    // 없으면 추가 (좋아요 등록)
-                    CommentLike newLike = CommentLike.builder()
-                            .user(user)
-                            .comment(comment)
-                            .build();
-                    commentLikeRepository.save(newLike);
-                    return "좋아요가 등록되었습니다.";
+                    commentLikeRepository.save(CommentLike.builder().user(user).comment(comment).build());
+                    return true; // 좋아요 등록됨
                 });
     }
 
