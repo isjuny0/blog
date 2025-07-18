@@ -6,12 +6,12 @@ import com.example.blog.entity.Post;
 import com.example.blog.entity.User;
 import com.example.blog.exception.CustomException;
 import com.example.blog.exception.ErrorCode;
+import com.example.blog.mapper.PostMapper;
 import com.example.blog.repository.PostRepository;
 import com.example.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.List;
 
