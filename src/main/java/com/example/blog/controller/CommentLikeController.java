@@ -3,6 +3,7 @@ package com.example.blog.controller;
 import com.example.blog.security.UserDetailsImpl;
 import com.example.blog.service.CommentLikeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +16,10 @@ public class CommentLikeController {
 
     // 좋아요 토글 (등록 / 취소)
     @PostMapping("/{commentId}/like")
-    private String toggleLike(@PathVariable Long commentId,
-                              @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return commentLikeService.toggleLike(commentId, userDetails.getUser());
+    private ResponseEntity<String> toggleLike(@PathVariable Long commentId,
+                                              @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        boolean liked = commentLikeService.toggleLike(commentId, userDetails.getUser());
+        return ResponseEntity.ok(liked ? "좋아요가 등록되었습니다." : "좋아요가 취소되었습니다.");
     }
 
     // 좋아요 개수 조회

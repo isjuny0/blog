@@ -8,12 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface CommentLikeRepository extends JpaRepository<CommentLike, Long> {
-    // 좋아요 여부 확인
+    boolean existsByCommentAndUser(Comment comment, User user);
     Optional<CommentLike> findByUserAndComment(User user, Comment comment);
-    // 댓글 좋아요 개수 집계
     long countByComment(Comment comment);
-    // 좋아요 취소
-    void deleteByUserAndComment(User user, Comment comment);
-
-    Boolean existsByCommentAndUser(Comment comment, User user);
 }
