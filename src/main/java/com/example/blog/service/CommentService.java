@@ -44,4 +44,23 @@ public class CommentService {
                 .map(comment -> new CommentResponseDto(comment.getId(), comment.getContent(), comment.getUser().getUsername()))
                 .collect(Collectors.toList());
     }
+
+    public CommentResponseDto updateComment(Long commentId, CommentRequestDto requestDto, User user) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
+        if (!comment.getUser().getId().equals(user.getId())) {
+            throw new SecurityException("작성자만 수정할 수 있습니다.");
+        }
+        comment.setContent(requestDto.getContent());
+        return new CommentResponseDto(comment.getId(), comment.getContent(), comment.getUser().getUsername());
+    }
+
+    public void deleteComment(Long commentId, User user) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
+        if (!comment.getUser().getId().equals(user.getId())) {
+            throw new SecurityException("작성자만 삭제할 수 있습니다.");
+        }
+        commentRepository.delete(comment);
+    }
 }

@@ -36,4 +36,24 @@ public class CommentController {
     public ResponseEntity<List<CommentResponseDto>> getComments(@PathVariable Long postId) {
         return ResponseEntity.ok(commentService.getCommentsByPost(postId));
     }
+
+    // 댓글 수정
+    @PutMapping("/{commentId}")
+    public ResponseEntity<CommentResponseDto> updateComment(
+            @PathVariable Long commentId,
+            @RequestBody CommentRequestDto requestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+        CommentResponseDto response = commentService.updateComment(commentId, requestDto, userDetails.getUser());
+        return ResponseEntity.ok(response);
+    }
+
+    // 댓글 삭제
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId,
+                                              @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+        commentService.deleteComment(commentId, userDetails.getUser());
+        return ResponseEntity.noContent().build();
+    }
 }
