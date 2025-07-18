@@ -47,7 +47,7 @@ public class CommentService {
 
     public CommentResponseDto updateComment(Long commentId, CommentRequestDto requestDto, User user) {
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
         if (!comment.getUser().getId().equals(user.getId())) {
             throw new SecurityException("작성자만 수정할 수 있습니다.");
         }
@@ -57,7 +57,7 @@ public class CommentService {
 
     public void deleteComment(Long commentId, User user) {
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
         if (!comment.getUser().getId().equals(user.getId())) {
             throw new SecurityException("작성자만 삭제할 수 있습니다.");
         }
