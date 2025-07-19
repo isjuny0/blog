@@ -45,6 +45,9 @@ dependencies {
 
 	// 암호화 (비밀번호 해시용)
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// JSONObject
+	implementation 'org.json:json:20240303'
 }
 
 tasks.named('test') {
