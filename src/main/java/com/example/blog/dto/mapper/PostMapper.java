@@ -1,7 +1,7 @@
-package com.example.blog.mapper;
+package com.example.blog.dto.mapper;
 
-import com.example.blog.dto.PostRequestDto;
-import com.example.blog.dto.PostResponseDto;
+import com.example.blog.dto.request.PostRequestDto;
+import com.example.blog.dto.response.PostResponseDto;
 import com.example.blog.entity.Post;
 import org.springframework.stereotype.Component;
 

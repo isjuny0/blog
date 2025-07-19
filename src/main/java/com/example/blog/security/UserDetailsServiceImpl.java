@@ -1,10 +1,9 @@
-package com.example.blog.service;
+package com.example.blog.security;
 
 import com.example.blog.entity.User;
 import com.example.blog.exception.CustomException;
 import com.example.blog.exception.ErrorCode;
 import com.example.blog.repository.UserRepository;
-import com.example.blog.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

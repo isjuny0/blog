@@ -1,6 +1,6 @@
 package com.example.blog.service;
 
-import com.example.blog.dto.WeatherResponseDto;
+import com.example.blog.dto.response.WeatherResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;

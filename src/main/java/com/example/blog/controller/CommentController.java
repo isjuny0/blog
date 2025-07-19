@@ -1,7 +1,7 @@
 package com.example.blog.controller;
 
-import com.example.blog.dto.CommentRequestDto;
-import com.example.blog.dto.CommentResponseDto;
+import com.example.blog.dto.request.CommentRequestDto;
+import com.example.blog.dto.request.CommentResponseDto;
 import com.example.blog.entity.User;
 import com.example.blog.security.UserDetailsImpl;
 import com.example.blog.service.CommentService;

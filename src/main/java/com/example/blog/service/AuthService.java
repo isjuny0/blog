@@ -1,7 +1,7 @@
 package com.example.blog.service;
 
-import com.example.blog.dto.LoginRequestDto;
-import com.example.blog.dto.SignupRequestDto;
+import com.example.blog.dto.request.LoginRequestDto;
+import com.example.blog.dto.response.SignupRequestDto;
 import com.example.blog.entity.User;
 import com.example.blog.exception.CustomException;
 import com.example.blog.exception.ErrorCode;

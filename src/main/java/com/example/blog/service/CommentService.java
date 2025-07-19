@@ -1,13 +1,13 @@
 package com.example.blog.service;
 
-import com.example.blog.dto.CommentRequestDto;
-import com.example.blog.dto.CommentResponseDto;
+import com.example.blog.dto.request.CommentRequestDto;
+import com.example.blog.dto.request.CommentResponseDto;
 import com.example.blog.entity.Comment;
 import com.example.blog.entity.Post;
 import com.example.blog.entity.User;
 import com.example.blog.exception.CustomException;
 import com.example.blog.exception.ErrorCode;
-import com.example.blog.mapper.CommentMapper;
+import com.example.blog.dto.mapper.CommentMapper;
 import com.example.blog.repository.CommentLikeRepository;
 import com.example.blog.repository.CommentRepository;
 import com.example.blog.repository.PostRepository;

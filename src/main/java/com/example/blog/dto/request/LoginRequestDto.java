@@ -1,4 +1,4 @@
-package com.example.blog.dto;
+package com.example.blog.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignupRequestDto {
+public class LoginRequestDto {
 
     @NotBlank
     private String username;
