@@ -1,6 +1,6 @@
-package com.example.blog.mapper;
+package com.example.blog.dto.mapper;
 
-import com.example.blog.dto.CommentResponseDto;
+import com.example.blog.dto.request.CommentResponseDto;
 import com.example.blog.entity.Comment;
 import com.example.blog.entity.User;
 import com.example.blog.repository.CommentLikeRepository;

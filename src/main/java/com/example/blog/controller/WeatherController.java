@@ -1,6 +1,6 @@
 package com.example.blog.controller;
 
-import com.example.blog.dto.WeatherResponseDto;
+import com.example.blog.dto.response.WeatherResponseDto;
 import com.example.blog.service.WeatherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

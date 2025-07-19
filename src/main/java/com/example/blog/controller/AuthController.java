@@ -1,7 +1,7 @@
 package com.example.blog.controller;
 
-import com.example.blog.dto.LoginRequestDto;
-import com.example.blog.dto.SignupRequestDto;
+import com.example.blog.dto.request.LoginRequestDto;
+import com.example.blog.dto.response.SignupRequestDto;
 import com.example.blog.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

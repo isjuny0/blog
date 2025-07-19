@@ -1,12 +1,12 @@
 package com.example.blog.service;
 
-import com.example.blog.dto.PostRequestDto;
-import com.example.blog.dto.PostResponseDto;
+import com.example.blog.dto.request.PostRequestDto;
+import com.example.blog.dto.response.PostResponseDto;
 import com.example.blog.entity.Post;
 import com.example.blog.entity.User;
 import com.example.blog.exception.CustomException;
 import com.example.blog.exception.ErrorCode;
-import com.example.blog.mapper.PostMapper;
+import com.example.blog.dto.mapper.PostMapper;
 import com.example.blog.repository.PostRepository;
 import com.example.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

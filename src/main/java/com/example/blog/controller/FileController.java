@@ -1,6 +1,6 @@
 package com.example.blog.controller;
 
-import com.example.blog.dto.FileUploadResponse;
+import com.example.blog.dto.request.FileUploadResponse;
 import com.example.blog.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;

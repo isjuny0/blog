@@ -1,6 +1,6 @@
 package com.example.blog.integration;
 
-import com.example.blog.dto.PostRequestDto;
+import com.example.blog.dto.request.PostRequestDto;
 import com.example.blog.entity.Post;
 import com.example.blog.entity.User;
 import com.example.blog.repository.PostRepository;

@@ -1,6 +1,6 @@
 package com.example.blog.service;
 
-import com.example.blog.dto.FileUploadResponse;
+import com.example.blog.dto.request.FileUploadResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
