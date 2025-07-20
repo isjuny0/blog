@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class NotificationProducer {
+public class CommentNotificationProducer {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    public void send(String message) {
-        kafkaTemplate.send("notification", message);
+    public void sendCommentNotification(String message) {
+        kafkaTemplate.send("comment-notify", message);
     }
 }

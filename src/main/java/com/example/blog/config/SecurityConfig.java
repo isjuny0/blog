@@ -41,7 +41,10 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                        "/api/auth/**"
+                        "/api/auth/**",
+                        "/ws/**",
+                        "/topic/**",
+                        "/alermTest.html"
                         ).permitAll()
                 .anyRequest().authenticated()
         );

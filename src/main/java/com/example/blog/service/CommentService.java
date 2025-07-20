@@ -8,7 +8,7 @@ import com.example.blog.entity.User;
 import com.example.blog.exception.CustomException;
 import com.example.blog.exception.ErrorCode;
 import com.example.blog.dto.mapper.CommentMapper;
-import com.example.blog.kafka.NotificationProducer;
+import com.example.blog.kafka.CommentNotificationProducer;
 import com.example.blog.repository.CommentLikeRepository;
 import com.example.blog.repository.CommentRepository;
 import com.example.blog.repository.PostRepository;
@@ -26,7 +26,7 @@ public class CommentService {
     private final PostRepository postRepository;
     private final CommentLikeRepository commentLikeRepository;
     private final CommentMapper commentMapper;
-    private final NotificationProducer notificationProducer;
+    private final CommentNotificationProducer notificationProducer;
 
 
     public CommentResponseDto createComment(Long postId, CommentRequestDto requestDto, User user) {
@@ -43,7 +43,7 @@ public class CommentService {
 
         // Kafka로 알림 메시지 전송
         String message = String.format("'%s' 님이 게시글(%d)에 댓글을 남겼습니다: %s", user.getUsername(), post.getId(), comment.getContent());
-        notificationProducer.send(message);
+        notificationProducer.sendCommentNotification(message);
 
         return commentMapper.toDto(comment);
     }

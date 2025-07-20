@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class NotificationTestController {
 
-    private final NotificationProducer producer;
+    private final CommentNotificationProducer producer;
 
     @PostMapping("/send-notification")
     public ResponseEntity<String> sendNotification(@RequestParam String message) {
-        producer.send(message);
+        producer.sendCommentNotification(message);
         return ResponseEntity.ok("Kafka 알림 전송 완료");
     }
 }
