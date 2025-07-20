@@ -49,7 +49,8 @@ dependencies {
 	// JSONObject
 	implementation 'org.json:json:20240303'
 
-
+	// kafka
+	implementation 'org.springframework.kafka:spring-kafka'
 }
 
 tasks.named('test') {
