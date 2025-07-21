@@ -45,7 +45,7 @@ public class PostService {
 
     @Cacheable(value = "post", key = "#postId")
     public PostResponseDto findById(Long postId) {
-        Post post = postRepository.findById(postId)
+        Post post = postRepository.findByIdWithUser(postId)
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
         return postMapper.toDto(post);
     }
