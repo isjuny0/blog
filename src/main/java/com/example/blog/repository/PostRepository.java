@@ -1,7 +1,14 @@
 package com.example.blog.repository;
 
 import com.example.blog.entity.Post;
+import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
+
+    @Query("SELECT p FROM Post p JOIN FETCH p.user WHERE p.id = :id")   // 게시글과 작성자를 하나의 쿼리로 조회
+    Optional<Post> findByIdWithUser(@Param("id") Long id);  // 기존 findById() 대신 이 메서드를 사용해야 N+1이 발생하지 않음
 }
