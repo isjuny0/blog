@@ -10,6 +10,9 @@ import com.example.blog.dto.mapper.PostMapper;
 import com.example.blog.repository.PostRepository;
 import com.example.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -40,12 +43,14 @@ public class PostService {
                 .toList();
     }
 
-    public PostResponseDto findById(Long id) {
-        Post post = postRepository.findById(id)
+    @Cacheable(value = "post", key = "#postId")
+    public PostResponseDto findById(Long postId) {
+        Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
         return postMapper.toDto(post);
     }
 
+    @CachePut(value = "post", key = "#postId")
     public PostResponseDto update(Long postId, PostRequestDto dto, User user) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
@@ -59,6 +64,8 @@ public class PostService {
         return postMapper.toDto(postRepository.save(post));
     }
 
+
+    @CacheEvict(value = "post", key = "#postId")
     public void delete(Long postId, User user) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
