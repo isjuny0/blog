@@ -26,10 +26,7 @@ public class PostService {
     private final PostMapper postMapper;
     private final UserRepository userRepository;
 
-    public PostResponseDto create(PostRequestDto dto, String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-
+    public PostResponseDto create(PostRequestDto dto, User user) {
         Post post = postMapper.toEntity(dto);
         post.setUser(user);
 

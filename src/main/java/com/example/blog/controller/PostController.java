@@ -24,9 +24,8 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<PostResponseDto> create(@RequestBody PostRequestDto dto,
-                                                  @AuthenticationPrincipal UserDetails userDetails) {
-        String username = userDetails.getUsername();
-        PostResponseDto response = postService.create(dto, username);
+                                                  @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        PostResponseDto response = postService.create(dto, userDetails.getUser());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
