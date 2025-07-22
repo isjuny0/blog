@@ -64,6 +64,9 @@ dependencies {
 	// 테스트
 	testImplementation 'org.mockito:mockito-core'
 	testImplementation 'org.assertj:assertj-core'
+
+	// 테스트용 H2 DB
+	testImplementation 'com.h2database:h2'
 }
 
 tasks.named('test') {
