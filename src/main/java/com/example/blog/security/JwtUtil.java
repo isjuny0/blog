@@ -17,21 +17,23 @@ public class JwtUtil {
     private static final String AUTH_HEADER = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
 
-    private Key key;    // Decode한 secret_key를 담는 객체
+    private Key key;
 
-    @PostConstruct  // 딱 한번만 받아오면 되는 값을 위해 사용
+    @PostConstruct
     public void init() {
         key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
+    // ✅ Bearer 없이 순수 토큰만 생성
     public String createAccessToken(String username) {
-        return BEARER_PREFIX + Jwts.builder()
+        return Jwts.builder()
                 .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRE_TIME))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
+    // ✅ 요청 헤더에서 Bearer 제거 후 토큰만 추출
     public String extractToken(HttpServletRequest request) {
         String header = request.getHeader(AUTH_HEADER);
         if (header != null && header.startsWith(BEARER_PREFIX)) {

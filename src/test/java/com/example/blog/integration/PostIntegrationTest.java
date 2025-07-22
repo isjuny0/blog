@@ -47,7 +47,9 @@ public class PostIntegrationTest {
                 .password(passwordEncoder.encode("1234"))
                 .build());
 
-        jwtToken = jwtUtil.createAccessToken(testUser.getUsername());
+        userRepository.flush();
+
+        jwtToken = "Bearer " + jwtUtil.createAccessToken(testUser.getUsername());
     }
 
     @Test
