@@ -50,6 +50,7 @@ public class PostIntegrationTest {
         userRepository.flush();
 
         jwtToken = "Bearer " + jwtUtil.createAccessToken(testUser.getUsername());
+        System.out.println("🔥 DB에 저장된 user: " + userRepository.findByUsername("testUser"));
     }
 
     @Test

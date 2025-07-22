@@ -30,6 +30,10 @@ public class JwtAuthFilter extends GenericFilter {
             UsernamePasswordAuthenticationToken authToken =
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authToken);
+
+            System.out.println("[JwtAuthFilter] 인증 성공: " + username);
+        } else {
+            System.out.println("[JwtAuthFilter] 인증 실패 또는 토큰 없음");
         }
 
         chain.doFilter(request, response);
