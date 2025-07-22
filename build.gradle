@@ -60,6 +60,10 @@ dependencies {
 
 	// Redis에 LocalDateTime 필드 직렬화를 위한 의존성
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+	// 테스트
+	testImplementation 'org.mockito:mockito-core'
+	testImplementation 'org.assertj:assertj-core'
 }
 
 tasks.named('test') {
